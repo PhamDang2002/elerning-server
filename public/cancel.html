@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Hủy Thành Công
+    <button id="backButton">Quay lại trang chủ</button>
+
+    <script>
+      // Lấy nút bằng ID
+      const backButton = document.getElementById('backButton');
+
+      // Thêm sự kiện click vào nút
+      backButton.addEventListener('click', function () {
+        // Chuyển hướng đến localhost:5173
+        window.location.href = 'http://localhost:5173';
+      });
+    </script>
+  </body>
+</html>
