@@ -90,6 +90,10 @@ export const getAllUser = TryCatch(async (req, res) => {
 });
 
 export const updateRole = TryCatch(async (req, res) => {
+  if (req.user.mainrole !== 'superadmin')
+    return res
+      .status(403)
+      .json({ message: 'This endpoint is assin to superadmin' });
   const user = await User.findById(req.params.id);
   if (user.role === 'user') {
     user.role = 'admin';

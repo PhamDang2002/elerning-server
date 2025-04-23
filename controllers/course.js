@@ -122,25 +122,37 @@ export const paymentVerification = TryCatch(async (req, res) => {
 });
 
 export const addProgress = TryCatch(async (req, res) => {
-  const progress = await Progress.findOne({
+  const { course, lectureId } = req.query;
+
+  // Find the user's progress for the course
+  let progress = await Progress.findOne({
     user: req.user._id,
-    course: req.query.course,
+    course: course,
   });
 
-  const { lectureId } = req.query;
+  if (!progress) {
+    // If no progress found, create a new progress record
+    progress = await Progress.create({
+      user: req.user._id,
+      course: course,
+      completedLectures: [],
+    });
+  }
 
+  // Check if the lecture has already been completed
   if (progress.completedLectures.includes(lectureId)) {
     return res.json({
       message: 'Progress recorded',
     });
   }
 
+  // Add the current lecture to completedLectures
   progress.completedLectures.push(lectureId);
 
   await progress.save();
 
   res.status(201).json({
-    message: 'new Progress added',
+    message: 'New Progress added',
   });
 });
 
