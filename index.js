@@ -19,7 +19,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://elearning-frontend-six-tau.vercel.app',
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   // allowedHeaders: ['Content-Type', 'Authorization'], // Thêm header Authorization nếu bạn dùng token
   credentials: true, // Cho phép gửi cookie nếu cần
@@ -30,8 +30,8 @@ app.use(cors(corsOptions)); // Apply CORS configuration
 app.use(express.static('public'));
 app.use(express.json());
 
-const CLIENT_DOMAIN = 'https://elearning-frontend-six-tau.vercel.app';
-const YOUR_DOMAIN = 'http://localhost:5000';
+const CLIENT_DOMAIN = `${process.env.frontendurl}`;
+
 const orderCode = Math.floor(Math.random() * 10000);
 app.post('/api/create-payment-link', async (req, res) => {
   // Nhận các tham số từ request body
