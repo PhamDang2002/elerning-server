@@ -6,7 +6,7 @@ import adminRoutes from './routes/admin.js';
 import userRoutes from './routes/user.js';
 import PayOS from '@payos/node';
 import cors from 'cors';
-
+import cron from 'node-cron';
 dotenv.config();
 
 export const payos = new PayOS(
@@ -74,6 +74,17 @@ app.use('/api', adminRoutes);
 app.post('/receive-hook', async (req, res) => {
   console.log(req.body);
   res.status(200).json(req.body);
+});
+
+cron.schedule('*/10 * * * *', async () => {
+  try {
+    // Request to the server itself every 10 minutes to prevent sleep
+    console.log('Sending request to the server...');
+    await axios.get(`${process.env.SERVER_URL}/`); // Replace with your actual endpoint if needed
+    console.log('Server is still active');
+  } catch (error) {
+    console.error('Error during cron job:', error);
+  }
 });
 
 app.listen(process.env.PORT, () => {
