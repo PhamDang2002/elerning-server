@@ -7,6 +7,7 @@ import userRoutes from './routes/user.js';
 import PayOS from '@payos/node';
 import cors from 'cors';
 import cron from 'node-cron';
+import axios from 'axios';
 dotenv.config();
 
 export const payos = new PayOS(
