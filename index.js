@@ -81,7 +81,7 @@ cron.schedule('*/10 * * * *', async () => {
   try {
     // Request to the server itself every 10 minutes to prevent sleep
     console.log('Sending request to the server...');
-    await axios.get(`${process.env.SERVER_URL}/`); // Replace with your actual endpoint if needed
+    await axios.get(`${process.env.frontendurl}/`); // Replace with your actual endpoint if needed
     console.log('Server is still active');
   } catch (error) {
     console.error('Error during cron job:', error);
